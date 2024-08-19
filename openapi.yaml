@@ -1,0 +1,308 @@
+openapi: 3.0.1
+info:
+  title: FastAPI
+  version: '1.0'
+paths:
+  /houses/:
+    get:
+      summary: Get Houses
+      operationId: get_houses_houses__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/House'
+                type: array
+                title: Response Get Houses Houses  Get
+    post:
+      summary: Create House
+      operationId: create_house_houses__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/House'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /houses/{id}:
+    get:
+      summary: Get House
+      operationId: get_house_houses__id__get
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /reservations/:
+    get:
+      summary: Get Reservations
+      operationId: get_reservations_reservations__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Reservation'
+                type: array
+                title: Response Get Reservations Reservations  Get
+    post:
+      summary: Create Reservation
+      operationId: create_reservation_reservations__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /reservations/{id}:
+    get:
+      summary: Get Reservation
+      operationId: get_reservation_reservations__id__get
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /rentals/:
+    get:
+      summary: Get Rentals
+      operationId: get_rentals_rentals__get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Rental'
+                type: array
+                title: Response Get Rentals Rentals  Get
+    post:
+      summary: Create Rental
+      operationId: create_rental_rentals__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rental'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /rentals/{id}:
+    get:
+      summary: Get Rental
+      operationId: get_rental_rentals__id__get
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    House:
+      properties:
+        id:
+          type: integer
+          title: Id
+        name:
+          type: string
+          title: Name
+        location:
+          type: string
+          title: Location
+        contact_details:
+          type: string
+          title: Contact Details
+        facilities:
+          items:
+            type: string
+          type: array
+          title: Facilities
+        price_per_night:
+          type: number
+          title: Price Per Night
+        availability:
+          type: boolean
+          title: Availability
+      type: object
+      required:
+        - id
+        - name
+        - location
+        - contact_details
+        - facilities
+        - price_per_night
+        - availability
+      title: House
+    Rental:
+      properties:
+        id:
+          type: integer
+          title: Id
+        reservation_id:
+          type: integer
+          title: Reservation Id
+        bike_id:
+          type: integer
+          title: Bike Id
+        rental_price:
+          type: number
+          title: Rental Price
+        status:
+          type: string
+          title: Status
+      type: object
+      required:
+        - id
+        - reservation_id
+        - bike_id
+        - rental_price
+        - status
+      title: Rental
+    Reservation:
+      properties:
+        id:
+          type: integer
+          title: Id
+        house_id:
+          type: integer
+          title: House Id
+        customer_name:
+          type: string
+          title: Customer Name
+        customer_contact:
+          type: string
+          title: Customer Contact
+        check_in_date:
+          type: string
+          title: Check In Date
+        check_out_date:
+          type: string
+          title: Check Out Date
+        total_price:
+          type: number
+          title: Total Price
+        status:
+          type: string
+          title: Status
+      type: object
+      required:
+        - id
+        - house_id
+        - customer_name
+        - customer_contact
+        - check_in_date
+        - check_out_date
+        - total_price
+        - status
+      title: Reservation
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+              - type: string
+              - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+        - loc
+        - msg
+        - type
+      title: ValidationError
